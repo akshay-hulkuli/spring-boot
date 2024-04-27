@@ -23,4 +23,15 @@ public class SayHelloController {
                 .append("</html>");
         return sb.toString();
     }
+
+    /*
+        In order to build UI/HTML we need something known as views.
+        These views are build using JSPs - Jakartha server pages.
+        JSPs must be kept in the path - /src/main/resources/META-INF/resources/WEB-INF/jsp/
+     */
+
+    @RequestMapping("say-hello-jsp")
+    public String sayHelloJsp() {
+        return "hello";
+    }
 }
