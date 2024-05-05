@@ -4,7 +4,7 @@
 <head>
     <link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet"/>
     <title>
-        Add Todo page
+        Add/Update Todo page
     </title>
 </head>
 <body>

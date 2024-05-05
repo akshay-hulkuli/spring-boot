@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,9 +30,20 @@ public class TodoService {
         return todos.stream().filter(t -> t.getUserName().equals(name)).collect(Collectors.toList());
     }
 
+    public Todo getTodosById(int id) {
+        Optional<Todo> optionalTodo = todos.stream().filter(t -> t.getId() == id).findFirst();
+        return optionalTodo.orElse(null);
+    }
+
     public void addTodo(String name, String description, LocalDate date, boolean completed) {
         count++;
         Todo todo = new Todo(count, name, description, date, completed);
+        todos.add(todo);
+    }
+
+    public void update(int id, Todo todo) {
+        deleteTodo(id);
+        count++;
         todos.add(todo);
     }
 
