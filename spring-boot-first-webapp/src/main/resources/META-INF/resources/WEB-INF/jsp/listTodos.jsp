@@ -1,20 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet"/>
-    <title>
-        Welcome Page
-    </title>
-</head>
+<%@ include file="common/header.jspf"%>
 <body>
+<%@ include  file="common/navigation.jspf" %>
 <div class="container">
-    <h1>Welcome ${name}</h1>
+    <h1>Welcome to the Todo list page</h1>
     <hr>
-    <h3>Welcome to the Todo list page</h3>
     <table class="table">
         <thead class="table-header">
         <tr>
-            <th>Id</th>
             <th>Description</th>
             <th>Target Date</th>
             <th>Id done?</th>
@@ -26,7 +18,6 @@
 
         <c:forEach items="${todos}" var="todo">
             <tr>
-                <td>${todo.id}</td>
                 <td>${todo.description}</td>
                 <td>${todo.targetDate}</td>
                 <td>${todo.done}</td>
@@ -39,7 +30,6 @@
     <a href="add-todo" class="btn btn-success">Add Todo</a>
 </div>
 
-<script src="webjars/jquery/3.7.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+<%@include file="common/footer.jspf"%>
 </body>
 </html>
