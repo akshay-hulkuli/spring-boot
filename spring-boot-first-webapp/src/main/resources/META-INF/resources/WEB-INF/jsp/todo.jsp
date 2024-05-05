@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <html>
 <head>
     <link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet"/>
@@ -8,10 +10,13 @@
 <body>
 <div class="container">
     <h1>Enter todo pages</h1>
-    <form method="post">
-        Description : <input type="text" name="description" placeholder="Enter description" required>
-        <input type="submit" class="btn btn-success">
-    </form>
+    <form:form method="post" modelAttribute="todo">
+        Description : <form:input type="text" name="description" placeholder="Enter description" path="description"/>
+        <form:errors path="description" cssClass="text-warning"/>
+        <form:input type="hidden" path="id"/>
+        <form:input type="hidden" path="done"/>
+        <input type="submit" class="btn btn-success" />
+    </form:form>
 </div>
 </body>
 <script src="webjars/jquery/3.7.1/jquery.min.js"></script>

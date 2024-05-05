@@ -1,11 +1,18 @@
 package com.akshay.springbootfirstwebapp.todo;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class Todo {
+    @NotNull
     private int id;
     private String userName;
+    @Size(min = 10, message = "Enter atleast 10 characters")
     private String description;
+    @FutureOrPresent(message = "invalid date")
     private LocalDate targetDate;
     private boolean done;
 

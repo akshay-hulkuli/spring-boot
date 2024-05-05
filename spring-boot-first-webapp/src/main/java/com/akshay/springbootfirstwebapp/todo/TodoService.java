@@ -34,4 +34,9 @@ public class TodoService {
         Todo todo = new Todo(count, name, description, date, completed);
         todos.add(todo);
     }
+
+    public void deleteTodo(int id) {
+        todos.removeIf((t) -> t.getId() == id);
+        count--;
+    }
 }
