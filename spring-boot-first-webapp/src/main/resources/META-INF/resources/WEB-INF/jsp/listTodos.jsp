@@ -1,17 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet"/>
     <title>
         Welcome Page
     </title>
 </head>
 <body>
-<div>
+<div class="container">
     <h1>Welcome ${name}</h1>
     <hr>
     <h3>Welcome to the Todo list page</h3>
-    <table>
-        <thead>
+    <table class="table">
+        <thead class="table-header">
         <tr>
             <th>Id</th>
             <th>Description</th>
@@ -31,6 +32,10 @@
         </c:forEach>
         </tbody>
     </table>
+    <a href="add-todo" class="btn btn-success">Add Todo</a>
 </div>
+
+<script src="webjars/jquery/3.7.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
 </body>
 </html>

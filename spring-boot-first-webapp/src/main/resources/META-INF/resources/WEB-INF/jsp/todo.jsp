@@ -2,20 +2,18 @@
 <head>
     <link href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet"/>
     <title>
-        Login Page
+        Add Todo page
     </title>
 </head>
 <body>
 <div class="container">
-    <h1>Welcome to the login page</h1>
-    <pre>${error}</pre>
+    <h1>Enter todo pages</h1>
     <form method="post">
-        Name: <input type="text" name="name" placeholder="Enter your user name"/>
-        Password: <input type="password" name="password" placeholder="Enter your password"/>
-        <input type="submit"/>
+        Description : <input type="text" name="description" placeholder="Enter description" required>
+        <input type="submit" class="btn btn-success">
     </form>
 </div>
+</body>
 <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
-</body>
 </html>
