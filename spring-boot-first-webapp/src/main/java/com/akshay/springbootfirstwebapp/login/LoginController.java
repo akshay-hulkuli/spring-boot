@@ -8,8 +8,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("name")
 public class LoginController {
 
     @Autowired
@@ -45,6 +47,10 @@ public class LoginController {
     public String goToLoginPage() {
         return "login";
     }
+
+    /*
+        The scope of values in a  model is limited to current request only by default.
+     */
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String goToWelcomePage(@RequestParam String name, @RequestParam String password, ModelMap modelMap) {
