@@ -12,21 +12,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDate;
+import java.util.Collections;
 
-//@Controller
+@Controller
 @SessionAttributes("name")
-public class TodoController {
+public class TodoControllerJPA {
 
-    private TodoService todoService;
+    private TodoRepository todoRepository;
 
-    public TodoController(TodoService todoService) {
-        this.todoService = todoService;
+    public TodoControllerJPA(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
     }
 
     @RequestMapping("/list-todos")
     public String listAllTodos(ModelMap model) {
         String userName = getLoggedUserName();
-        model.addAttribute("todos", todoService.getTodosByName(userName));
+        model.addAttribute("todos", todoRepository.findByUserName(userName));
         return "listTodos";
     }
 
@@ -42,19 +43,20 @@ public class TodoController {
         if(result.hasErrors()) {
             return "todo";
         }
-        todoService.addTodo( getLoggedUserName(), todo.getDescription(), LocalDate.now().plusYears(1), false);
+        Todo todo1 = new Todo(0, getLoggedUserName(), todo.getDescription(),  LocalDate.now().plusYears(1), false);
+        todoRepository.saveAndFlush(todo1);
         return "redirect:list-todos";
     }
 
     @RequestMapping("/delete-todo")
     public String deleteTodo(@RequestParam int id) {
-        todoService.deleteTodo(id);
+        todoRepository.deleteById(id);
         return "redirect:list-todos";
     }
 
     @RequestMapping(value = "/update-todo", method = RequestMethod.GET)
     public String showUpdateTodoPage(@RequestParam int id, ModelMap model) {
-        model.addAttribute("todo", todoService.getTodosById(id));
+        model.addAttribute("todo", todoRepository.findById(id));
 //        todoService.deleteTodo(id);
         return "todo";
     }
@@ -65,7 +67,7 @@ public class TodoController {
             return "todo";
         }
         todo.setUserName(getLoggedUserName());
-        todoService.update(todo.getId(), todo);
+        todoRepository.saveAndFlush(todo);
         return "redirect:list-todos";
     }
 

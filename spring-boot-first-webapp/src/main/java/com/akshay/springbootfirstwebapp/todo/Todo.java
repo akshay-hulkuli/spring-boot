@@ -1,13 +1,19 @@
 package com.akshay.springbootfirstwebapp.todo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
+@Entity
 public class Todo {
     @NotNull
+    @Id
+    @GeneratedValue
     private int id;
     private String userName;
     @Size(min = 10, message = "Enter atleast 10 characters")
@@ -15,6 +21,8 @@ public class Todo {
     @FutureOrPresent(message = "invalid date")
     private LocalDate targetDate;
     private boolean done;
+
+    public Todo() {}
 
     public Todo(int id, String userName, String description, LocalDate targetDate, boolean done) {
         this.id = id;
