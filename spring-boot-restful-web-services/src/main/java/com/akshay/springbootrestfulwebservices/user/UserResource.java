@@ -1,6 +1,6 @@
 package com.akshay.springbootrestfulwebservices.user;
 
-import org.springframework.http.HttpStatus;
+import com.akshay.springbootrestfulwebservices.exception.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,7 +24,11 @@ public class UserResource {
 
     @GetMapping("/users/{id}")
     public User getUsers(@PathVariable int id) {
-        return userDaoService.findById(id);
+        User user = userDaoService.findById(id);
+        if (user == null) {
+            throw new UserNotFoundException("id: " + id);
+        }
+        return user;
     }
 
     @PostMapping("/users")
@@ -37,5 +41,10 @@ public class UserResource {
                 .buildAndExpand(savedUser.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+        userDaoService.deleteById(id);
     }
 }
