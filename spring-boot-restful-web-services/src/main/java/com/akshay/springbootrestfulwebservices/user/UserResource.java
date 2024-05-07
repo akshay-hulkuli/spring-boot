@@ -1,6 +1,7 @@
 package com.akshay.springbootrestfulwebservices.user;
 
 import com.akshay.springbootrestfulwebservices.exception.UserNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,7 +33,7 @@ public class UserResource {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Object> createUser(@RequestBody User user) {
+    public ResponseEntity<Object> createUser(@RequestBody @Valid User user) {
         User savedUser = userDaoService.createUser(user);
 //        URI location = URI.create("/users/" + user.getId());
         URI location = ServletUriComponentsBuilder

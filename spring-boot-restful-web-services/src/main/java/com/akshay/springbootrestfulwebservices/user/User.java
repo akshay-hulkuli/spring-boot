@@ -1,10 +1,17 @@
 package com.akshay.springbootrestfulwebservices.user;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class User {
     private int id;
+    @Size(min = 3, message = "name should have atleast 3 characters")
+    @NotEmpty
     private String name;
+    @Past(message = "birthday should be a past date")
     private LocalDate birthday;
 
     public int getId() {
