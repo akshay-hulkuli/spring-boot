@@ -2,6 +2,8 @@ package com.akshay.springbootrestfulwebservices.user;
 
 import com.akshay.springbootrestfulwebservices.exception.UserNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,6 +23,29 @@ public class UserResource {
     @GetMapping("/users")
     public List<User> getUsers() {
         return userDaoService.findAll();
+    }
+
+    /*
+        HATEOAS = hypermedia as the engine of Application state.
+        A given website will be having data and actions to be performed on them.
+        Using HATEOAS we can define what are the further actions that one can perform on retrieving data using a URL/API.
+        Spring provides a starter project to easily implement HATEOAS(spring-boot-starter-hateoas).
+        In order to understand this we need to understand 2 things
+        1. EntityModel - wraps the returned data from a RestMapping method.
+        2. WebMvcLinkBuilder -
+
+     */
+
+    @GetMapping(path = "/users/{id}", params = "hateoas=true")
+    public EntityModel<User> getUsersWithHateoas(@PathVariable int id) {
+        User user = userDaoService.findById(id);
+        if (user == null) {
+            throw new UserNotFoundException("id: " + id);
+        }
+        EntityModel<User> entityModel = EntityModel.of(user);
+        WebMvcLinkBuilder linkBuilder = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).getUsers());
+        entityModel.add(linkBuilder.withRel("all-users"));
+        return entityModel;
     }
 
     @GetMapping("/users/{id}")
