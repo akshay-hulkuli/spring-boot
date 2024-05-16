@@ -1,5 +1,6 @@
 package com.akshay.springbootrestfulwebservices.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -10,6 +11,7 @@ public class User {
     private int id;
     @Size(min = 3, message = "name should have atleast 3 characters")
     @NotEmpty
+    @JsonProperty("user_name")
     private String name;
     @Past(message = "birthday should be a past date")
     private LocalDate birthday;
